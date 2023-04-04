@@ -1,4 +1,10 @@
-
+import lombok.*;
+import model.City;
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class Employee {
     private int id;
     private String first_name;

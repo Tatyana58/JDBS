@@ -1,3 +1,5 @@
+package model;
+
 import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
@@ -6,5 +8,5 @@ import lombok.*;
 @ToString
 public class City {
     private int city_id;
-    private int city_Name;
+    private String city_Name;
 }
