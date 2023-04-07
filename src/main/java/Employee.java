@@ -1,8 +1,6 @@
 import lombok.*;
 import model.City;
 
-import java.util.Objects;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

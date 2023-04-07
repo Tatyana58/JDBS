@@ -1,22 +1,63 @@
+import model.City;
+
+import java.awt.*;
 import java.sql.*;
 import java.util.List;
+import java.util.Scanner;
 
 public class Application {
     public static final String user = "postgres";
     public static final String password = "8791103";
     public static final String url = "jdbc:postgresql://localhost:5432/skypro";
+    public static int x;
     public static void main(String[] args) throws SQLException {
-
-        //printCity();                                       // выводит все города работает
+        //printCity();                                        // выводит все города работает
+        Scanner scanner = new Scanner(System.in);
+        Employee employee1 = new Employee();
         EmployeeDAO employeeDAO = new EmployeeDaoImpl();
-        //employeeDAO.addEmployeeTable();                         //работает
-        //employeeDAO.getEmployeeId(6);                        // работает
-        //employeeDAO.updateEmployeeId(2,new Employee());
-        //employeeDAO.getAddEmployeeTable();
-        //employeeDAO.deleteEmployeeId(0);                   // работает
+        Label:
+        menu();
+        System.out.print("Введите число:");
+        if (scanner.hasNextInt()) {
+            x = scanner.nextInt();
+            switch (x) {
+                case 0:
+                    System.out.println("Выход\n");
+                    break;
+                case 1:
+                    System.out.println("*  1-Создание (добавление) сущности Employee в таблицу.    *");
+                    employeeDAO.addEmployeeTable();                         //работает
+                    break;
+                case 2:
+                    System.out.println("*  2-Получение конкретного объекта Employee по id.         *");
+                    System.out.println("Введите число:");
+                    x = scanner.nextInt();
+                    employeeDAO.getEmployeeId(x);                        // работает
+                    break;
+                case 3:
+                    System.out.println("*  3-Получение списка всех объектов Employee из базы.      *");
+                    employeeDAO.getAllEmployeeTable();                   //работает
+                    break;
+                case 4:
+                    System.out.println("*  4-Изменение конкретного объекта Employee в базе по id.  *");
+                    System.out.println("Введите число:");
+                    x = scanner.nextInt();
+                    employeeDAO.updateEmployeeId(x, employee1);         //работает
+                    break;
+                case 5:
+                    System.out.println("*  5-Удаление конкретного объекта Employee из базы по id.  *");
+                    System.out.println("Введите число:");
+                    x = scanner.nextInt();
+                    employeeDAO.deleteEmployeeId(x);                   // работает
+                    break;
+                default:
+                    System.out.println("Вы ввели не верное число.");
+                    break;
+            }
+        }
     }
 
-    public static void printCity() {
+    public static void printCity() {   // выводит все города работает
         try (final Connection connection =
                      DriverManager.getConnection(url, user, password);
              PreparedStatement statement =
@@ -35,7 +76,7 @@ public class Application {
             // Исключение для обработки возможных ошибок при подключении
         }
     }
-    public static void printAllEmployee() {
+    public static void printAllEmployee() { // выводит всех сотрудников
         try (final Connection connection =
                      DriverManager.getConnection(url, user, password);
              PreparedStatement statement =
@@ -58,5 +99,17 @@ public class Application {
             e.printStackTrace();
             // Исключение для обработки возможных ошибок при подключении
         }
+    }
+    public static void menu() {
+        System.out.println("************************************************************");
+        System.out.println("*                    Mеню                                  *");
+        System.out.println("*  0-выход                                                 *");
+        System.out.println("*  1-Создание (добавление) сущности Employee в таблицу.    *");
+        System.out.println("*  2-Получение конкретного объекта Employee по id.         *");
+        System.out.println("*  3-Получение списка всех объектов Employee из базы.      *");
+        System.out.println("*  4-Изменение конкретного объекта Employee в базе по id.  *");
+        System.out.println("*  5-Удаление конкретного объекта Employee из базы по id.  *");
+        System.out.println("******************************");
+
     }
 }

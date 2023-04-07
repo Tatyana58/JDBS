@@ -49,7 +49,7 @@ public class EmployeeDaoImpl implements EmployeeDAO {
         return employee;
     }
     @Override
-    public List<Employee> getAddEmployeeTable() {
+    public List<Employee> getAllEmployeeTable() {
         List<Employee> employees= new ArrayList<>();
         try(PreparedStatement statement = ConnectionConfig.getConnection().
                 prepareStatement("SELECT * FROM employee INNER JOIN city ON employee.city_id=city.city_id");){
@@ -59,9 +59,10 @@ public class EmployeeDaoImpl implements EmployeeDAO {
                 String firstName=resultSet.getString("first_name");
                 String lastName=resultSet.getString("last_name");
                 String gender=resultSet.getString("gender");
-                int age=Integer.parseInt(resultSet.getString(25));
+                int age=Integer.parseInt(resultSet.getString(5));
                 City city = new City((resultSet.getInt("city_id")),resultSet.getString("city_name"));
                 employees.add(new Employee(id,firstName,lastName,gender,age,city));
+                System.out.println("id: "+resultSet.getInt(1)+", "+firstName+", "+lastName+", "+gender+", "+ age+", "+ city.getCity_id()+", "+city.getCity_Name());
             }
         }catch (SQLException e) {
             e.printStackTrace();
@@ -70,15 +71,16 @@ public class EmployeeDaoImpl implements EmployeeDAO {
     }
 
     @Override
-    public void updateEmployeeId(int id, Employee employee) {
+    public void updateEmployeeId(int id,Employee employee) {
+        //employee=new Employee(13, "Rew", "Leva", "men", 54, new City(1,"ваы"));
         try(PreparedStatement statement = ConnectionConfig.getConnection()
                 .prepareStatement("UPDATE employee SET first_name=(?),last_name=(?),gender=(?),age=(?),city_id=(?) WHERE id=(?)")){
-            statement.setString(1,employee.getFirst_name());
-            statement.setString(2,employee.getLast_name());
-            statement.setString(3,employee.getGender());
-            statement.setInt(4,employee.getAge());
-            statement.setInt(5,employee.getCity().getCity_id());
-            statement.setInt(6,id);
+            statement.setString(1,"Svetkin");
+            statement.setString(2,"Slava");
+            statement.setString(3,"men");
+            statement.setInt(4,43);
+            statement.setInt(5, 1);
+            statement.setInt(6, id);
             System.out.println("Изменили данные в таблице.");
             statement.executeUpdate();
         } catch (SQLException e) {
