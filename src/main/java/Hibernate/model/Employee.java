@@ -1,4 +1,4 @@
-package Hibernate;
+package Hibernate.model;
 
 import lombok.*;
 
@@ -9,10 +9,10 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode(exclude = {"id"})
-
-@Table(name = "employee")
+@EqualsAndHashCode(of = "id")
+@Builder
 @Entity
+@Table(name = "employee")
 public class Employee {
 
     @Id
@@ -26,6 +26,7 @@ public class Employee {
     private String gender;
     @Column
     private int age;
-    @Column(name = "city_id")
-    private int city;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_id")
+    private City city;
 }

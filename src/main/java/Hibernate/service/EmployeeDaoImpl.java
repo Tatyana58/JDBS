@@ -1,6 +1,10 @@
-package Hibernate;
+package Hibernate.service;
+
+import Hibernate.HibernateSessionFactoryUtil;
+import Hibernate.model.Employee;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
 import java.util.List;
 
 public class EmployeeDaoImpl implements EmployeeDAO {
@@ -24,6 +28,7 @@ public class EmployeeDaoImpl implements EmployeeDAO {
     @Override
     public List<Employee> getAllEmployeeTable() {
         try (Session session= HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            System.out.println("Все элементы :");
             return session.createSQLQuery("SELECT*FROM employee").list();
         }
     }
