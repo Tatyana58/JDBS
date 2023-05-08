@@ -1,4 +1,6 @@
-package Hibernate;
+package Hibernate.service;
+
+import Hibernate.model.Employee;
 
 import java.util.List;
 
